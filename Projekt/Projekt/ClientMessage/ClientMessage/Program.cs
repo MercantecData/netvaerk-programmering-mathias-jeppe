@@ -34,17 +34,32 @@ namespace ClientMessage
                 string messageRespond = "";
                 string message1 = "";
                 while(messageRespond != "dø" || message1 != "dø")
-                {
+                 {
                 byte[] buffer = new byte[256];
-                int numberOfBytesRead = stream.Read(buffer, 0, 256);
+                    try
+                    {
+                        int numberOfBytesRead = stream.Read(buffer, 0, 256);
+                        message1 = Encoding.UTF8.GetString(buffer, 0, numberOfBytesRead);
+                    } catch (Exception)
+                    {
+                        return;
+                    }
 
-                message1 = Encoding.UTF8.GetString(buffer, 0, numberOfBytesRead);
-
+                    
                 Console.WriteLine(message1);
 
                 messageRespond = Console.ReadLine();     //Besked indhold
+                    if(messageRespond == "dø")
+                    {
+                        return;
+                    }
                 byte[] buffer1 = Encoding.UTF8.GetBytes(messageRespond);    //Besked i bytes
-                stream.Write(buffer1, 0, buffer1.Length);   //Sender besked
+                try {stream.Write(buffer1, 0, buffer1.Length);   //Sender besked 
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
                 }
                 return;
             }
@@ -84,9 +99,15 @@ namespace ClientMessage
 
                     //Modtag en ny besked fra Server/Client2
                     byte[] buffer1 = new byte[256];
-                    int numberOfBytesRead = stream.Read(buffer1, 0, 256);
+                    try
+                    {
+                        int numberOfBytesRead = stream.Read(buffer1, 0, 256);
 
-                    message = Encoding.UTF8.GetString(buffer1, 0, numberOfBytesRead);
+                        message = Encoding.UTF8.GetString(buffer1, 0, numberOfBytesRead);
+                    } catch (Exception)
+                    {
+                        return;
+                    }
 
                     Console.WriteLine(message);
 
