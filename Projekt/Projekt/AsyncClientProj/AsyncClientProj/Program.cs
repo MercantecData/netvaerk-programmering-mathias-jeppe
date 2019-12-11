@@ -9,14 +9,17 @@ namespace AsyncClientProj
     {
         static void Main(string[] args)
         {
-            Server();
+            Console.Write("Skriv port ind: ");
+            int portInput = int.Parse(Console.ReadLine());
 
-            Klient();
+            Server(portInput);
+
+            Klient(portInput);
         }
 
-        static public async void Server()
+        static public async void Server(int portInput)
         {
-            int port = 14000;
+            int port = portInput;
             IPAddress ip = IPAddress.Any;
             IPEndPoint localEndpoint = new IPEndPoint(ip, port);
 
@@ -35,14 +38,14 @@ namespace AsyncClientProj
             byte[] buffer = Encoding.UTF8.GetBytes(text);
 
             stream.Write(buffer, 0, buffer.Length);*/
-
+            
             Console.ReadKey();
         }
-        static public void Klient()
+        static public void Klient(int portInput)
         {
             TcpClient client = new TcpClient();
 
-            int port = 14000;
+            int port = portInput;
             IPAddress ip = IPAddress.Parse("172.16.115.82");
             IPEndPoint endPoint = new IPEndPoint(ip, port);
 
