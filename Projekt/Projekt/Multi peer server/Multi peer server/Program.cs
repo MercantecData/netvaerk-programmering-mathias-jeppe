@@ -16,7 +16,7 @@ namespace Multi_peer_server
             
             
             void MyServer()
-            {
+            { 
                 //Connect til server
                 //IPAddress ip = IPAddress.Parse("127.0.0.1");
                 IPAddress ip = IPAddress.Any;
@@ -51,8 +51,7 @@ namespace Multi_peer_server
                         try { client.GetStream().Write(buffer, 0, buffer.Length); }
                         catch (Exception)
                         {
-                            return;
-                            
+                            return;   
                         }
                     }
                 }
